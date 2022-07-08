@@ -127,23 +127,26 @@ def make_reply(msg):     # user input will go here
     if msg is not None:
         reply = bot_initialize(msg)     # user input will start processing from bot_initialize function
     return reply
-       
-while True:
-    # print("...")
-    updates = tbot.get_updates(offset=update_id)
-    updates = updates['result']
-    # print(updates)
-    if updates:
-        for item in updates:
-            update_id = item["update_id"]
-            # print(update_id)
-            try:
-                message = item["message"]["text"]
-                # print(message)
-            except:
-                message = None
-            from_ = item["message"]["from"]["id"]
-            # print(from_)
 
-            reply = make_reply(message)
-            tbot.send_message(reply,from_)
+try:       
+    while True:
+        # print("...")
+        updates = tbot.get_updates(offset=update_id)
+        updates = updates['result']
+        # print(updates)
+        if updates:
+            for item in updates:
+                update_id = item["update_id"]
+                # print(update_id)
+                try:
+                    message = item["message"]["text"]
+                    # print(message)
+                except:
+                    message = None
+                from_ = item["message"]["from"]["id"]
+                # print(from_)
+
+                reply = make_reply(message)
+                tbot.send_message(reply,from_)
+except Exception as err:
+    print(err)
